@@ -23,9 +23,39 @@ _start:
 # Output: The string is reversed in-place
 reverse_string:
 ; ------- SOLUTION --------
+	mv a1, a0 			# copy the pointer
+	jal ra, len
+	
+	add a2, a0, t0		# pointer to last char
+	jal ra, reverse_loop
+	
+reverse_loop:
+    blt a2, a1, reverse_done   # check first
+    lb t1, 0(a1)               # load start char
+    lb t2, 0(a2)               # load end char
+    sb t2, 0(a1)               # swap
+    sb t1, 0(a2)
+    addi a1, a1, 1             # move start forward
+    addi a2, a2, -1            # move end backward
+    j reverse_loop
 
+	
+reverse_done:
+	ret
+	
+len: 
+	li t0, 0
 
+len_loop:
+	lb t1, 0(a0)
+	beq t1, zero, len_done
+	addi t0, t0, 1
+	addi a0, a0, 1
+	j len_loop
 
+len_done:
+	ret
+	
 ; ------- SOLUTION --------
 
 print_string:

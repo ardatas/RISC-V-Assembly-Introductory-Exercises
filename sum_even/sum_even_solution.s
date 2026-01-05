@@ -40,5 +40,4 @@ next:
 
 end_loop:
     add a0, zero, t0   ; Set a0 to the calculated sum
-
     ret

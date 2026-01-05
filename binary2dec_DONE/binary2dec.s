@@ -18,3 +18,22 @@ _start:
 # Output: a0 - The decimal representation of the binary number
 
 binary_to_decimal:
+	
+	addi t0, zero, 0
+	addi t1, zero, 2
+	
+
+to_string:
+	lb t2, 0(a0)
+	beq t2, t1, end
+	
+	
+	slli t0, t0, 1
+	or t0, t0, t2
+	
+	addi a0, a0, 1
+	j to_string
+
+end:
+	add a0, zero, t0
+	ret

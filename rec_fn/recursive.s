@@ -20,4 +20,38 @@ _start:
 
 
 calc_Fn:
+	
+	li t0, 0
+	beq a0, t0, zero_case
+	
+	li t0, 1
+	beq a0, t0, one_case
+	
+	addi sp, sp, -16
+	sw ra, 12(sp)
+	sw a0, 8(sp)
+	
+	addi a0, a0, -2
+	jal calc_Fn
+
+	
+	li t1, 5	
+	mul a0, a0, t1
+	
+	lw t0, 8(sp)	
+	add a0, a0, t0
+	
+	
+	#restore
+	lw ra, 12(sp)
+	addi sp, sp, 16
+	ret 
+
+zero_case: 
+	li a0, 3
+	ret
+	
+one_case: 
+	li a0, 5
+	ret
    

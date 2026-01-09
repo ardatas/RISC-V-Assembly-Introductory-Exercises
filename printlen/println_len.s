@@ -5,8 +5,7 @@
 .org 0x400
 .data
 
-text_1: .asciz "Hi!"
-
+text_1: .asciz "String Length of 20!"
 .org 0x200
 .text
 
@@ -25,6 +24,33 @@ ebreak
 ; -------- SOLUTION  ----------
 
 println_len:
+	addi sp, sp, -16
+	sw ra, 12(sp)
+	sw s0, 8(sp)
+	
+	mv s0, zero
+	
+	jal loop
+
+loop:
+
+	lb t0, 0(a0)
+	
+	addi a0, a0, 1
+
+	beq t0, zero, end
+	addi s0, s0, 1
+	
+	j loop
+	
+end: 
+	
+	mv a0, s0
+	
+	lw s0, 8(sp)
+	lw ra, 12(sp)
+	addi sp, sp, 16
+	ret
 
 
 ; -------- SOLUTION  ----------
